@@ -1,0 +1,36 @@
+class Solution {
+    /**
+     * @param {string[]} strs
+     * @returns {string}
+     */
+    encode(strs: string[]): string {
+        let result = "";
+        for (const str of strs) {
+            result += `${str.length}#${str}`;
+        }
+        return result;
+    }
+
+    /**
+     * @param {string} str
+     * @returns {string[]}
+     */
+    decode(str: string): string[] {
+        const result = [];
+        if (!str) return [];
+        let i = 0;
+        while (i < str.length - 1) {
+            let j = i;
+            while (str.at(j) !== "#") {
+            if (str.at(j + 1) === "#") {
+                const strLen = Number(str.slice(i, j + 1));
+                result.push(str.slice(j + 2, j + strLen + 2));
+                i = j + strLen + 2;
+            }
+            j += 1;
+            }
+        }
+
+        return result;
+    }
+}
